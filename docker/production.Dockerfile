@@ -42,12 +42,12 @@ RUN apt-get update -yq \
     && apt-get clean -y
 
 
-RUN curl -O https://nodejs.org/dist/v18.3.0/node-v18.3.0-linux-x64.tar.xz \
-    && tar -xf node-v18.3.0-linux-x64.tar.xz \
-    && mv node-v18.3.0-linux-x64 /usr/local/lib/nodejs \
+RUN curl -O https://nodejs.org/dist/v18.3.0/node-v18.3.0-linux-arm64.tar.xz \
+    && tar -xf node-v18.3.0-linux-arm64.tar.xz \
+    && mv node-v18.3.0-linux-arm64 /usr/local/lib/nodejs \
     && echo 'export PATH="/usr/local/lib/nodejs/bin:$PATH"' >> /etc/profile.d/nodejs.sh \
     && /bin/bash -c "source /etc/profile.d/nodejs.sh" \
-    && rm node-v18.3.0-linux-x64.tar.xz
+    && rm node-v18.3.0-linux-arm64.tar.xz
 ENV PATH=/usr/local/lib/nodejs/bin:$PATH
 
 ENV NODE_ENV=production
@@ -61,12 +61,12 @@ RUN apt-get update && \
 # Install Instantclient Basic Light Oracle and Dependencies
 WORKDIR /opt/oracle
 
-RUN wget https://tooljet-plugins-production.s3.us-east-2.amazonaws.com/marketplace-assets/oracledb/instantclients/instantclient-basiclite-linuxx64.zip && \
-    wget https://tooljet-plugins-production.s3.us-east-2.amazonaws.com/marketplace-assets/oracledb/instantclients/instantclient-basiclite-linux.x64-11.2.0.4.0.zip && \
-    unzip instantclient-basiclite-linuxx64.zip && rm -f instantclient-basiclite-linuxx64.zip && \
-    unzip instantclient-basiclite-linux.x64-11.2.0.4.0.zip && rm -f instantclient-basiclite-linux.x64-11.2.0.4.0.zip && \
+RUN wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basiclite-linux-arm64.zip && \
+#    wget https://tooljet-plugins-production.s3.us-east-2.amazonaws.com/marketplace-assets/oracledb/instantclients/instantclient-basiclite-linux.x64-11.2.0.4.0.zip && \
+    unzip instantclient-basiclite-linux-arm64.zip && rm -f instantclient-basiclite-linux-arm64.zip && \
+#    unzip instantclient-basiclite-linux.x64-11.2.0.4.0.zip && rm -f instantclient-basiclite-linux.x64-11.2.0.4.0.zip && \
     cd /opt/oracle/instantclient_21_10 && rm -f *jdbc* *occi* *mysql* *mql1* *ipc1* *jar uidrvci genezi adrci && \
-    cd /opt/oracle/instantclient_11_2 && rm -f *jdbc* *occi* *mysql* *mql1* *ipc1* *jar uidrvci genezi adrci && \
+#    cd /opt/oracle/instantclient_11_2 && rm -f *jdbc* *occi* *mysql* *mql1* *ipc1* *jar uidrvci genezi adrci && \
     echo /opt/oracle/instantclient* > /etc/ld.so.conf.d/oracle-instantclient.conf && ldconfig
 # Set the Instant Client library paths
 ENV LD_LIBRARY_PATH="/opt/oracle/instantclient_11_2:/opt/oracle/instantclient_21_10:${LD_LIBRARY_PATH}"
