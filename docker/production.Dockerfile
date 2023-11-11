@@ -61,15 +61,16 @@ RUN apt-get update && \
 # Install Instantclient Basic Light Oracle and Dependencies
 WORKDIR /opt/oracle
 
-RUN wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basiclite-linux-arm64.zip
+#Unable to fix this for arm64
+#RUN wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basiclite-linux-arm64.zip
 #RUN  wget https://tooljet-plugins-production.s3.us-east-2.amazonaws.com/marketplace-assets/oracledb/instantclients/instantclient-basiclite-linux.x64-11.2.0.4.0.zip
-RUN unzip instantclient-basiclite-linux-arm64.zip && rm -f instantclient-basiclite-linux-arm64.zip
+#RUN unzip instantclient-basiclite-linux-arm64.zip && rm -f instantclient-basiclite-linux-arm64.zip
 #RUN unzip instantclient-basiclite-linux.x64-11.2.0.4.0.zip && rm -f instantclient-basiclite-linux.x64-11.2.0.4.0.zip
-RUN cd /opt/oracle/instantclient_21_10 && rm -f *jdbc* *occi* *mysql* *mql1* *ipc1* *jar uidrvci genezi adrci
+#RUN cd /opt/oracle/instantclient_21_10 && rm -f *jdbc* *occi* *mysql* *mql1* *ipc1* *jar uidrvci genezi adrci
 #RUN cd /opt/oracle/instantclient_11_2 && rm -f *jdbc* *occi* *mysql* *mql1* *ipc1* *jar uidrvci genezi adrci
-RUN echo /opt/oracle/instantclient* > /etc/ld.so.conf.d/oracle-instantclient.conf && ldconfig
+#RUN echo /opt/oracle/instantclient* > /etc/ld.so.conf.d/oracle-instantclient.conf && ldconfig
 # Set the Instant Client library paths
-ENV LD_LIBRARY_PATH="/opt/oracle/instantclient_11_2:/opt/oracle/instantclient_21_10:${LD_LIBRARY_PATH}"
+#ENV LD_LIBRARY_PATH="/opt/oracle/instantclient_11_2:/opt/oracle/instantclient_21_10:${LD_LIBRARY_PATH}"
 
 
 WORKDIR /
